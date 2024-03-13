@@ -1,5 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.domain;
 
+import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,12 @@ public class Pessoa {
     private String nome;
     @NotNull
     private LocalDate dataNascimento;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @NotNull
     private List<Endereco> endereco;
+    public Pessoa(PessoaRequest pessoaRequest) {
+        this.nome = pessoaRequest.getNome();
+        this.dataNascimento = pessoaRequest.getDataNascimento();
+        this.endereco = pessoaRequest.getEndereco();
+    }
 }

@@ -16,7 +16,7 @@ public class PessoaRequest {
     private String nome;
     @NotNull
     private LocalDate dataNascimento;
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.PERSIST)
+    @OneToMany
     @NotNull
     private List<Endereco> endereco;
 }
