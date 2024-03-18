@@ -1,9 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.application.service;
 
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaDetalhadoResponse;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaListResponse;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaResponse;
+import academy.wakanda.pessoaendereco.pessoa.application.api.*;
 import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaRepository;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +38,15 @@ public class PessoaApplicationService implements PessoaService{
         Pessoa pessoa = pessoaRepository.buscaPessoaAtravesId(idPessoa);
         log.info("[finaliza] PessoaApplicationService - buscaPessoaAtravesId");
         return new PessoaDetalhadoResponse(pessoa);
+    }
+
+    @Override
+    public void patchAlteraPessoa(UUID idPessoa, PessoaAlteracaoRequest pessoaAlteracaoRequest) {
+        log.info("[inicia] PessoaApplicationService - patchAlteraPessoa");
+        Pessoa pessoa = pessoaRepository.buscaPessoaAtravesId(idPessoa);
+//        pessoa.altera(pessoaAlteracaoRequest);
+//        pessoaRepository.salva(pessoa);
+        log.info("[finaliza] PessoaApplicationService - patchAlteraPessoa");
     }
 
 

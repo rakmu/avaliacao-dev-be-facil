@@ -1,9 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.application.service;
 
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaDetalhadoResponse;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaListResponse;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaResponse;
+import academy.wakanda.pessoaendereco.pessoa.application.api.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,4 +11,6 @@ public interface PessoaService {
     List<PessoaListResponse> buscaTodasPessoas();
 
     PessoaDetalhadoResponse buscaPessoaAtravesId(UUID idPessoa);
+
+    void patchAlteraPessoa(UUID idPessoa, PessoaAlteracaoRequest pessoaAlteracaoRequest);
 }
