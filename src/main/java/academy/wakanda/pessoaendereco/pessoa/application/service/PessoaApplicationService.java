@@ -1,5 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.application.service;
 
+import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaDetalhadoResponse;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaListResponse;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaResponse;
@@ -10,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -31,6 +33,14 @@ public class PessoaApplicationService implements PessoaService{
         List<Pessoa> pessoas = pessoaRepository.buscaTodasPessoas();
         log.info("[finaliza] PessoaApplicationService - buscaTodasPessoas");
         return PessoaListResponse.converte(pessoas);
+    }
+
+    @Override
+    public PessoaDetalhadoResponse buscaPessoaAtravesId(UUID idPessoa) {
+        log.info("[inicia] PessoaApplicationService - buscaPessoaAtravesId");
+        Pessoa pessoa = pessoaRepository.buscaPessoaAtravesId(idPessoa);
+        log.info("[finaliza] PessoaApplicationService - buscaPessoaAtravesId");
+        return new PessoaDetalhadoResponse(pessoa);
     }
 
 
