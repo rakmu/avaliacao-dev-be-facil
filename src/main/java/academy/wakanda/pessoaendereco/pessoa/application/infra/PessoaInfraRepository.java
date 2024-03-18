@@ -3,6 +3,7 @@ package academy.wakanda.pessoaendereco.pessoa.application.infra;
 
 import academy.wakanda.pessoaendereco.handler.APIException;
 import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaRepository;
+import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -39,5 +40,13 @@ public class PessoaInfraRepository implements PessoaRepository {
                 .orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
         log.info("[finaliza] PessoaInfraRepository - buscaPessoaAtravesId");
         return pessoa;
+    }
+
+    @Override
+    public Endereco salvaEndereco(Endereco endereco) {
+        log.info("[inicia] PessoaInfraRepository - salvaEndereco");
+        endereco = pessoaSpringDataJPARepository.save(endereco);
+        log.info("[finaliza] PessoaInfraRepository - salvaEndereco");
+        return endereco;
     }
 }

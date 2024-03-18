@@ -2,7 +2,9 @@ package academy.wakanda.pessoaendereco.pessoa.application.service;
 
 import academy.wakanda.pessoaendereco.pessoa.application.api.*;
 import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaRepository;
+import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -50,14 +52,13 @@ public class PessoaApplicationService implements PessoaService{
     }
 
     @Override
-    public PessoaEnderecoResponse criaEndereco(UUID idPessoa, PessoaEnderecoRequest pessoaEnderecoRequest) {
+    public PessoaEnderecoResponse criaEndereco(UUID idPessoa, @Valid PessoaEnderecoRequest pessoaEnderecoRequest) {
         log.info("[inicia] PessoaApplicationService - criaEndereco");
         Pessoa pessoa = pessoaRepository.buscaPessoaAtravesId(idPessoa);
-//        Endereco endereco = new Endereco(pessoaEnderecoRequest);
-//        endereco.setPessoa(pessoa);
-//        pessoaRepository.salvaEndereco(endereco);
+        Endereco endereco = new Endereco(pessoaEnderecoRequest);
+        endereco.setPessoa(pessoa);
+        pessoaRepository.salvaEndereco(endereco);
         log.info("[finaliza] PessoaApplicationService - criaEndereco");
-//        return new PessoaEnderecoResponse(endereco);
-        return null;
+        return new PessoaEnderecoResponse(endereco);
     }
 }

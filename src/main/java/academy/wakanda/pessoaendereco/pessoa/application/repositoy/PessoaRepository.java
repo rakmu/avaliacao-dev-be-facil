@@ -1,5 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.application.repositoy;
 
+import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface PessoaRepository {
     List<Pessoa> buscaTodasPessoas();
 
     Pessoa buscaPessoaAtravesId(UUID idPessoa);
+
+    Endereco salvaEndereco(Endereco endereco);
 }
