@@ -1,5 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.domain;
 
+import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaAlteracaoRequest;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -32,5 +33,10 @@ public class Pessoa {
         this.nome = pessoaRequest.getNome();
         this.dataNascimento = pessoaRequest.getDataNascimento();
         this.endereco = pessoaRequest.getEndereco();
+    }
+
+    public void altera(PessoaAlteracaoRequest pessoaAlteracaoRequest) {
+        this.nome = pessoaAlteracaoRequest.getNome();
+        this.dataNascimento = pessoaAlteracaoRequest.getDataNascimento();
     }
 }
