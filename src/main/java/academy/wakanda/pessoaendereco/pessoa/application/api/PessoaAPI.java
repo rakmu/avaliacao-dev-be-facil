@@ -26,4 +26,9 @@ public interface PessoaAPI {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     void patchAlteraPessoa(@PathVariable UUID idPessoa,
                            @Valid @RequestBody PessoaAlteracaoRequest pessoaAlteracaoRequest);
+
+    @PostMapping("/{idPessoa}/postEndereco")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    PessoaEnderecoResponse postEndereco(@PathVariable UUID idPessoa,
+                                        @Valid @RequestBody PessoaEnderecoRequest pessoaEnderecoRequest);
 }
