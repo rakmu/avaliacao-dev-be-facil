@@ -48,4 +48,16 @@ public class PessoaApplicationService implements PessoaService{
         pessoaRepository.salva(pessoa);
         log.info("[finaliza] PessoaApplicationService - patchAlteraPessoa");
     }
+
+    @Override
+    public PessoaEnderecoResponse criaEndereco(UUID idPessoa, PessoaEnderecoRequest pessoaEnderecoRequest) {
+        log.info("[inicia] PessoaApplicationService - criaEndereco");
+        Pessoa pessoa = pessoaRepository.buscaPessoaAtravesId(idPessoa);
+//        Endereco endereco = new Endereco(pessoaEnderecoRequest);
+//        endereco.setPessoa(pessoa);
+//        pessoaRepository.salvaEndereco(endereco);
+        log.info("[finaliza] PessoaApplicationService - criaEndereco");
+//        return new PessoaEnderecoResponse(endereco);
+        return null;
+    }
 }

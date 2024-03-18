@@ -1,12 +1,12 @@
 package academy.wakanda.pessoaendereco.pessoa.application.api;
 
+import lombok.Builder;
 import lombok.Value;
 
+import java.util.UUID;
+
 @Value
+@Builder
 public class PessoaEnderecoResponse {
-    private String logradouro;
-    private String cep;
-    private Integer numero;
-    private String cidade;
-    private Boolean principal;
+    private UUID idEndereco;
 }

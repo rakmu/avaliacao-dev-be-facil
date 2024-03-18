@@ -48,9 +48,8 @@ public class PessoaController implements PessoaAPI{
     @Override
     public PessoaEnderecoResponse postEndereco(UUID idPessoa, PessoaEnderecoRequest pessoaEnderecoRequest) {
         log.info("[inicia] PessoaController postEndereco");
-//        PessoaEnderecoResponse enderecoCriado = pessoaService.criaEndereco(idPessoa, pessoaEnderecoRequest);
+        PessoaEnderecoResponse enderecoCriado = pessoaService.criaEndereco(idPessoa, pessoaEnderecoRequest);
         log.info("[finaliza] PessoaController postEndereco");
-//        return enderecoCriado;
-        return null;
+        return enderecoCriado;
     }
 }

@@ -13,4 +13,6 @@ public interface PessoaService {
     PessoaDetalhadoResponse buscaPessoaAtravesId(UUID idPessoa);
 
     void patchAlteraPessoa(UUID idPessoa, PessoaAlteracaoRequest pessoaAlteracaoRequest);
+
+    PessoaEnderecoResponse criaEndereco(UUID idPessoa, PessoaEnderecoRequest pessoaEnderecoRequest);
 }
