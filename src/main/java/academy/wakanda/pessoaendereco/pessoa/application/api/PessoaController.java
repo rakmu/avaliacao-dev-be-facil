@@ -52,4 +52,12 @@ public class PessoaController implements PessoaAPI{
         log.info("[finaliza] PessoaController postEndereco");
         return enderecoCriado;
     }
+
+    @Override
+    public List<EnderecoListResponse> getTodosEnderecoPessoa(UUID idPessoa) {
+        log.info("[inicia] PessoaController getTodosEnderecoPessoa");
+        log.info("[idPessoa] {}", idPessoa);
+        log.info("[finaliza] PessoaController getTodosEnderecoPessoa");
+        return null;
+    }
 }

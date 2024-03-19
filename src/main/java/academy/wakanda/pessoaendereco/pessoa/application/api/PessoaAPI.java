@@ -31,4 +31,8 @@ public interface PessoaAPI {
     @ResponseStatus(code = HttpStatus.CREATED)
     PessoaEnderecoResponse postEndereco(@PathVariable UUID idPessoa,
                                         @Valid @RequestBody PessoaEnderecoRequest pessoaEnderecoRequest);
+
+    @GetMapping("/{idPessoa}/listEnderecos")
+    @ResponseStatus(code = HttpStatus.OK)
+    List<EnderecoListResponse> getTodosEnderecoPessoa(@PathVariable UUID idPessoa);
 }
