@@ -15,4 +15,6 @@ public interface PessoaService {
     void patchAlteraPessoa(UUID idPessoa, PessoaAlteracaoRequest pessoaAlteracaoRequest);
 
     PessoaEnderecoResponse criaEndereco(UUID idPessoa, PessoaEnderecoRequest pessoaEnderecoRequest);
+
+    List<EnderecoListResponse> buscaTodosEnderecosPessoa(UUID idPessoa);
 }

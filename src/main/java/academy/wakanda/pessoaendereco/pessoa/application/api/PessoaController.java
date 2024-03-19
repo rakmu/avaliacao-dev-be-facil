@@ -57,7 +57,8 @@ public class PessoaController implements PessoaAPI{
     public List<EnderecoListResponse> getTodosEnderecoPessoa(UUID idPessoa) {
         log.info("[inicia] PessoaController getTodosEnderecoPessoa");
         log.info("[idPessoa] {}", idPessoa);
+        List<EnderecoListResponse> enderecos = pessoaService.buscaTodosEnderecosPessoa(idPessoa);
         log.info("[finaliza] PessoaController getTodosEnderecoPessoa");
-        return null;
+        return enderecos;
     }
 }
