@@ -52,22 +52,20 @@ public class PessoaApplicationService implements PessoaService{
     }
 
     @Override
-    public PessoaEnderecoResponse criaEndereco(UUID idPessoa, @Valid PessoaEnderecoRequest pessoaEnderecoRequest) {
+    public PessoaEnderecoResponse criaEndereco(UUID idPessoa, PessoaEnderecoRequest pessoaEnderecoRequest) {
         log.info("[inicia] PessoaApplicationService - criaEndereco");
         Pessoa pessoa = pessoaRepository.buscaPessoaAtravesId(idPessoa);
-        Endereco endereco = new Endereco(pessoaEnderecoRequest);
-        endereco.setPessoa(pessoa);
-        pessoaRepository.salvaEndereco(endereco);
+       Endereco endereco = pessoaRepository.salvaEndereco(new Endereco(pessoaEnderecoRequest));
         log.info("[finaliza] PessoaApplicationService - criaEndereco");
-        return new PessoaEnderecoResponse(endereco);
+        return PessoaEnderecoResponse.builder().idEndereco(endereco.getIdEndereco()).build();
     }
 
     @Override
     public List<EnderecoListResponse> buscaTodosEnderecosPessoa(UUID idPessoa) {
         log.info("[inicia] PessoaApplicationService - buscaTodosEnderecosPessoa");
-//     List<Endereco> enderecos = pessoaRepository.buscaTodosEnderecosPessoa(idPessoa);
+        buscaPessoaAtravesId(idPessoa);
+        List<Endereco> enderecos = pessoaRepository.buscaTodosEnderecosPessoa(idPessoa);
         log.info("[finaliza] PessoaApplicationService - buscaTodosEnderecosPessoa");
-//     return EnderecoListResponse.converte(enderecos);
-        return null;
+        return EnderecoListResponse.converte(enderecos);
     }
 }

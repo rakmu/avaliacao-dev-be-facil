@@ -7,10 +7,7 @@ import lombok.Value;
 import java.util.UUID;
 
 @Value
+@Builder
 public class PessoaEnderecoResponse {
     private UUID idEndereco;
-
-    public PessoaEnderecoResponse(Endereco endereco) {
-        this.idEndereco = endereco.getIdEndereco();
-    }
 }

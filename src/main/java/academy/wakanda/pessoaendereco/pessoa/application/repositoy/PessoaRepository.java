@@ -13,4 +13,6 @@ public interface PessoaRepository {
     Pessoa buscaPessoaAtravesId(UUID idPessoa);
 
     Endereco salvaEndereco(Endereco endereco);
+
+    List<Endereco> buscaTodosEnderecosPessoa(UUID idPessoa);
 }

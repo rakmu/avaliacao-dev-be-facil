@@ -1,5 +1,6 @@
 package academy.wakanda.pessoaendereco.pessoa.application.api;
 
+import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 import lombok.Builder;
 import lombok.Value;
 

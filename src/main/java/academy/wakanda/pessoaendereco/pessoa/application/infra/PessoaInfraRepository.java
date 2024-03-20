@@ -18,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PessoaInfraRepository implements PessoaRepository {
     private final PessoaSpringDataJPARepository pessoaSpringDataJPARepository;
+    private final EnderecoSpringDataJPARepository enderecoSpringDataJPARepository;
     @Override
     public Pessoa salva(Pessoa pessoa) {
         log.info("[inicia] PessoaInfraRepository - salva");
@@ -45,8 +46,16 @@ public class PessoaInfraRepository implements PessoaRepository {
     @Override
     public Endereco salvaEndereco(Endereco endereco) {
         log.info("[inicia] PessoaInfraRepository - salvaEndereco");
-        endereco = pessoaSpringDataJPARepository.save(endereco);
+        endereco = enderecoSpringDataJPARepository.save(endereco);
         log.info("[finaliza] PessoaInfraRepository - salvaEndereco");
         return endereco;
+    }
+
+    @Override
+    public List<Endereco> buscaTodosEnderecosPessoa(UUID idPessoa) {
+        log.info("[inicia] PessoaInfraRepository - buscaTodosEnderecosPessoa");
+        List<Endereco> todosEnderecos = enderecoSpringDataJPARepository.findAll();
+        log.info("[finaliza] PessoaInfraRepository - buscaTodosEnderecosPessoa");
+        return todosEnderecos;
     }
 }

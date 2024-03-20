@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaEnderecoRequest;
+import org.springframework.stereotype.Indexed;
 
 import java.util.UUID;
 @Entity
@@ -28,9 +29,8 @@ public class Endereco {
     private String cidade;
     @NotNull
     private Boolean principal;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idPessoa")
+    private UUID idPessoa;
+    @ManyToOne
     private Pessoa pessoa;
 
     public Endereco(PessoaEnderecoRequest pessoaEnderecoRequest) {
@@ -39,8 +39,8 @@ public class Endereco {
         this.numero = pessoaEnderecoRequest.getNumero();
         this.cidade = pessoaEnderecoRequest.getCidade();
         this.principal = pessoaEnderecoRequest.getPrincipal();
+        this.idPessoa = pessoaEnderecoRequest.getIdPessoa();
     }
-
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }

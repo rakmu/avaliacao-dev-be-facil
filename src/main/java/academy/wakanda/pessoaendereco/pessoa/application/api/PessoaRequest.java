@@ -12,6 +12,7 @@ import java.util.List;
 
 @Value
 public class PessoaRequest {
+
     @NotBlank
     private String nome;
     @NotNull
