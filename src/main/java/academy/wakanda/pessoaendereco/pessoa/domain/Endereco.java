@@ -29,9 +29,8 @@ public class Endereco {
     private String cidade;
     @NotNull
     private Boolean principal;
+    @NotNull
     private UUID idPessoa;
-    @ManyToOne
-    private Pessoa pessoa;
 
     public Endereco(PessoaEnderecoRequest pessoaEnderecoRequest) {
         this.logradouro = pessoaEnderecoRequest.getLogradouro();
@@ -40,8 +39,5 @@ public class Endereco {
         this.cidade = pessoaEnderecoRequest.getCidade();
         this.principal = pessoaEnderecoRequest.getPrincipal();
         this.idPessoa = pessoaEnderecoRequest.getIdPessoa();
-    }
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 }

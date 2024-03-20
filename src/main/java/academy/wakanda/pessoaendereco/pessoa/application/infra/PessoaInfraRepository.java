@@ -54,7 +54,7 @@ public class PessoaInfraRepository implements PessoaRepository {
     @Override
     public List<Endereco> buscaTodosEnderecosPessoa(UUID idPessoa) {
         log.info("[inicia] PessoaInfraRepository - buscaTodosEnderecosPessoa");
-        List<Endereco> todosEnderecos = enderecoSpringDataJPARepository.findAll();
+        List<Endereco> todosEnderecos = enderecoSpringDataJPARepository.findAllByIdPessoa(idPessoa);
         log.info("[finaliza] PessoaInfraRepository - buscaTodosEnderecosPessoa");
         return todosEnderecos;
     }

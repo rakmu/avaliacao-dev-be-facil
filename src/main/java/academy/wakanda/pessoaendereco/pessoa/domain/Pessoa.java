@@ -26,13 +26,11 @@ public class Pessoa {
     private String nome;
     @NotNull
     private LocalDate dataNascimento;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @NotNull
+    @OneToMany
     private List<Endereco> endereco;
     public Pessoa(PessoaRequest pessoaRequest) {
         this.nome = pessoaRequest.getNome();
         this.dataNascimento = pessoaRequest.getDataNascimento();
-        this.endereco = pessoaRequest.getEndereco();
     }
 
     public void altera(PessoaAlteracaoRequest pessoaAlteracaoRequest) {

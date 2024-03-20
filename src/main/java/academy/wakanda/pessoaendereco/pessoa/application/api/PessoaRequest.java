@@ -18,6 +18,5 @@ public class PessoaRequest {
     @NotNull
     private LocalDate dataNascimento;
     @OneToMany
-    @NotNull
     private List<Endereco> endereco;
 }

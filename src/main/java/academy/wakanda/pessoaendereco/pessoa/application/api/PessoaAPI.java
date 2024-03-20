@@ -27,12 +27,11 @@ public interface PessoaAPI {
     void patchAlteraPessoa(@PathVariable UUID idPessoa,
                            @Valid @RequestBody PessoaAlteracaoRequest pessoaAlteracaoRequest);
 
-    @PostMapping("/{idPessoa}/postEndereco")
+    @PostMapping("/endereco")
     @ResponseStatus(code = HttpStatus.CREATED)
-    PessoaEnderecoResponse postEndereco(@PathVariable UUID idPessoa,
-                                        @Valid @RequestBody PessoaEnderecoRequest pessoaEnderecoRequest);
+    PessoaEnderecoResponse postEndereco(@Valid @RequestBody PessoaEnderecoRequest pessoaEnderecoRequest);
 
-    @GetMapping("/{idPessoa}/listEnderecos")
+    @GetMapping("/{idPessoa}/endereco")
     @ResponseStatus(code = HttpStatus.OK)
     List<EnderecoListResponse> getTodosEnderecoPessoa(@PathVariable UUID idPessoa);
 }
