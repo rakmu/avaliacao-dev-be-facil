@@ -3,15 +3,15 @@ package academy.wakanda.pessoaendereco.pessoa.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaEnderecoRequest;
 import org.springframework.stereotype.Indexed;
 
 import java.util.UUID;
 @Entity
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Endereco {
 

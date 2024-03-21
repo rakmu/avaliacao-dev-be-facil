@@ -30,17 +30,20 @@ public class PessoaApplicationService implements PessoaService{
             log.info("[finaliza] PessoaApplicationService - criaPessoa");
             return PessoaResponse.builder().idPessoa(pessoa.getIdPessoa()).build();
         } catch (RuntimeException e) {
-            // Erro inesperado
             throw new APIException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao salvar pessoa", e);
         }
     }
 
     @Override
     public List<PessoaListResponse> buscaTodasPessoas() {
-        log.info("[inicia] PessoaApplicationService - buscaTodasPessoas");
-        List<Pessoa> pessoas = pessoaRepository.buscaTodasPessoas();
-        log.info("[finaliza] PessoaApplicationService - buscaTodasPessoas");
-        return PessoaListResponse.converte(pessoas);
+        try {
+            log.info("[inicia] PessoaApplicationService - buscaTodasPessoas");
+            List<Pessoa> pessoas = pessoaRepository.buscaTodasPessoas();
+            log.info("[finaliza] PessoaApplicationService - buscaTodasPessoas");
+            return PessoaListResponse.converte(pessoas);
+        }catch (RuntimeException e){
+                throw new APIException(HttpStatus.BAD_REQUEST, "Erro ao buscar pessoas", e);
+        }
     }
 
     @Override
