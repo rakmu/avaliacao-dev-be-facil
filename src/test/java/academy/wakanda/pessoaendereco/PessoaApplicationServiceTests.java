@@ -7,17 +7,12 @@ import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaReposit
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -36,7 +31,7 @@ public class PessoaApplicationServiceTests {
     @Mock
     private PessoaRepository pessoaRepository;
     @Test
-   public void testCriaPessoaComSucesso() {
+    void testCriaPessoaComSucesso() {
 
         Pessoa pessoa = DataHelper.createPessoa();
         PessoaRequest pessoaRequest = DataHelper.pessoaRequest();
@@ -133,18 +128,27 @@ public class PessoaApplicationServiceTests {
         assertEquals(pessoaAlteracaoRequest.getDataNascimento(), pessoa.getDataNascimento());
     }
 
+    @Test
+    void naoAlteraPessoa(){
+
+        UUID idPessoaInvalido = UUID.randomUUID();
+        Pessoa pessoa = DataHelper.createPessoa();
+        PessoaAlteracaoRequest pessoaAlteracaoRequest = DataHelper.alteracaoRequest();
+
+        when(pessoaRepository.buscaPessoaAtravesId(idPessoaInvalido)).thenThrow(APIException.build(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
+        APIException e = assertThrows(APIException.class,
+                () -> pessoaApplicationService.patchAlteraPessoa(idPessoaInvalido, pessoaAlteracaoRequest));
+
+
+        assertEquals(HttpStatus.NOT_FOUND, e.getStatusException());
+        assertEquals("Pessoa não encontrada!", e.getMessage());
+        verify(pessoaRepository, times(1)).buscaPessoaAtravesId(idPessoaInvalido);
+        verifyNoMoreInteractions(pessoaRepository);
+    }
+
 //    @Test
-//    void naoAlteraPessoa(){
+//    void criaEnderecoComSucesso(){
 //
-//        UUID idPessoaInvalido = UUID.randomUUID();
-//        Pessoa pessoa = DataHelper.createPessoa();
-//        PessoaAlteracaoRequest pessoaAlteracaoRequest = DataHelper.alteracaoRequest();
-//
-//        when(pessoaRepository.buscaPessoaAtravesId(idPessoaInvalido)).thenReturn(pessoa);
-//        assertThrows(APIException.class,
-//                () -> pessoaApplicationService.patchAlteraPessoa(idPessoaInvalido, pessoaAlteracaoRequest));
-//
-//        verify(pessoaRepository, times(1)).buscaPessoaAtravesId(idPessoaInvalido);
-//        verifyNoMoreInteractions(pessoaRepository);
 //    }
+
 }
