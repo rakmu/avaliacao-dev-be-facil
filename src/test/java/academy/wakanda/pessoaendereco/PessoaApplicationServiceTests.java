@@ -1,9 +1,7 @@
 package academy.wakanda.pessoaendereco;
 
 import academy.wakanda.pessoaendereco.handler.APIException;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaListResponse;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaResponse;
+import academy.wakanda.pessoaendereco.pessoa.application.api.*;
 import academy.wakanda.pessoaendereco.pessoa.application.service.PessoaApplicationService;
 import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaRepository;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
@@ -19,6 +17,8 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertThrows;
@@ -54,10 +54,10 @@ public class PessoaApplicationServiceTests {
     @Test
     void testCriaPessoaComErro() {
 
-        Pessoa pessoa = DataHelper.createPessoa();
         PessoaRequest pessoaRequest = DataHelper.pessoaRequest();
 
-        APIException ex = assertThrows(APIException.class, () -> pessoaApplicationService.criaPessoa(pessoaRequest));
+        APIException ex = assertThrows(APIException.class,
+                () -> pessoaApplicationService.criaPessoa(pessoaRequest));
 
         assertEquals(APIException.class, ex.getClass());
 
@@ -84,11 +84,67 @@ public class PessoaApplicationServiceTests {
         when(pessoaRepository.buscaTodasPessoas())
                 .thenThrow(APIException.build(HttpStatus.BAD_REQUEST, "Erro ao buscar pessoas"));
 
-        APIException e = assertThrows(APIException.class, () -> pessoaApplicationService.buscaTodasPessoas());
+        APIException e = assertThrows(APIException.class,
+                () -> pessoaApplicationService.buscaTodasPessoas());
 
         assertEquals(HttpStatus.BAD_REQUEST, e.getStatusException());
         assertEquals("Erro ao buscar pessoas", e.getMessage());
     }
 
+    @Test
+    void buscaPessoaAtravezDoId(){
 
+        Pessoa pessoa = DataHelper.createPessoa();
+
+        when(pessoaRepository.buscaPessoaAtravesId(any())).thenReturn(pessoa);
+
+        PessoaDetalhadoResponse resultado = pessoaApplicationService.buscaPessoaAtravesId(pessoa.getIdPessoa());
+
+        assertNotNull(resultado);
+
+        verify(pessoaRepository, times(1)).buscaPessoaAtravesId(pessoa.getIdPessoa());
+    }
+
+    @Test
+    void naoDeveBuscarPessoaAtravezDoId(){
+
+        Pessoa pessoa = DataHelper.createPessoa();
+
+        when(pessoaRepository.buscaPessoaAtravesId(any())).thenThrow(APIException.build(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
+
+        APIException e = assertThrows(APIException.class,
+                () -> pessoaApplicationService.buscaPessoaAtravesId(pessoa.getIdPessoa()));
+
+        assertEquals(HttpStatus.NOT_FOUND, e.getStatusException());
+        assertEquals("Pessoa não encontrada!", e.getMessage());
+    }
+
+    @Test
+    void alteraPessoa(){
+
+        Pessoa pessoa = DataHelper.createPessoa();
+        PessoaAlteracaoRequest pessoaAlteracaoRequest = DataHelper.alteracaoRequest();
+
+        when(pessoaRepository.buscaPessoaAtravesId(any())).thenReturn(pessoa);
+        pessoaApplicationService.patchAlteraPessoa(pessoa.getIdPessoa(), pessoaAlteracaoRequest);
+
+        verify(pessoaRepository, times(1)).buscaPessoaAtravesId(pessoa.getIdPessoa());
+        assertEquals(pessoaAlteracaoRequest.getNome(), pessoa.getNome());
+        assertEquals(pessoaAlteracaoRequest.getDataNascimento(), pessoa.getDataNascimento());
+    }
+
+//    @Test
+//    void naoAlteraPessoa(){
+//
+//        UUID idPessoaInvalido = UUID.randomUUID();
+//        Pessoa pessoa = DataHelper.createPessoa();
+//        PessoaAlteracaoRequest pessoaAlteracaoRequest = DataHelper.alteracaoRequest();
+//
+//        when(pessoaRepository.buscaPessoaAtravesId(idPessoaInvalido)).thenReturn(pessoa);
+//        assertThrows(APIException.class,
+//                () -> pessoaApplicationService.patchAlteraPessoa(idPessoaInvalido, pessoaAlteracaoRequest));
+//
+//        verify(pessoaRepository, times(1)).buscaPessoaAtravesId(idPessoaInvalido);
+//        verifyNoMoreInteractions(pessoaRepository);
+//    }
 }

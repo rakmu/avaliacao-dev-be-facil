@@ -1,5 +1,6 @@
 package academy.wakanda.pessoaendereco;
 
+import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaAlteracaoRequest;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
 import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
@@ -28,16 +29,26 @@ public class DataHelper {
 
         String nome = "Wakanda";
         LocalDate dataNascimento = LocalDate.of(2000, 1, 1);
-        PessoaRequest pessoaRequest = PessoaRequest.builder()
+
+        return PessoaRequest.builder()
                 .nome(nome)
                 .dataNascimento(dataNascimento)
                 .build();
-
-        return pessoaRequest;
     }
 
     public static List<Pessoa> createListPessoa() {
         LocalDate dataNascimento = LocalDate.of(2000, 1, 1);
         return List.of(Pessoa.builder().nome("lalau").dataNascimento(dataNascimento).endereco(null).build());
     }
+
+    public static PessoaAlteracaoRequest alteracaoRequest(){
+
+        String nome = "Wakanda";
+        LocalDate dataNascimento = LocalDate.of(2000, 1, 1);
+        return PessoaAlteracaoRequest.builder()
+                .nome(nome)
+                .dataNascimento(dataNascimento)
+                .build();
+    }
+
 }
