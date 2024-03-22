@@ -132,7 +132,6 @@ public class PessoaApplicationServiceTests {
     void naoAlteraPessoa(){
 
         UUID idPessoaInvalido = UUID.randomUUID();
-        Pessoa pessoa = DataHelper.createPessoa();
         PessoaAlteracaoRequest pessoaAlteracaoRequest = DataHelper.alteracaoRequest();
 
         when(pessoaRepository.buscaPessoaAtravesId(idPessoaInvalido)).thenThrow(APIException.build(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));

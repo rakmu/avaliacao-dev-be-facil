@@ -12,6 +12,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
@@ -67,7 +69,7 @@ public class PessoaApplicationService implements PessoaService{
     public PessoaEnderecoResponse criaEndereco(PessoaEnderecoRequest pessoaEnderecoRequest) {
         log.info("[inicia] PessoaApplicationService - criaEndereco");
         buscaPessoaAtravesId(pessoaEnderecoRequest.getIdPessoa());
-       Endereco endereco = pessoaRepository.salvaEndereco(new Endereco(pessoaEnderecoRequest));
+        Endereco endereco = pessoaRepository.salvaEndereco(new Endereco(pessoaEnderecoRequest));
         log.info("[finaliza] PessoaApplicationService - criaEndereco");
         return PessoaEnderecoResponse.builder().idEndereco(endereco.getIdEndereco()).build();
     }

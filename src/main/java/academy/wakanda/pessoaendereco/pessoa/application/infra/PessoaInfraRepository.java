@@ -2,6 +2,7 @@ package academy.wakanda.pessoaendereco.pessoa.application.infra;
 
 
 import academy.wakanda.pessoaendereco.handler.APIException;
+import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaEnderecoRequest;
 import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaRepository;
 import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
@@ -10,6 +11,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +22,8 @@ import java.util.UUID;
 public class PessoaInfraRepository implements PessoaRepository {
     private final PessoaSpringDataJPARepository pessoaSpringDataJPARepository;
     private final EnderecoSpringDataJPARepository enderecoSpringDataJPARepository;
+    private PessoaEnderecoRequest pessoaEnderecoRequest;
+
     @Override
     public Pessoa salva(Pessoa pessoa) {
         log.info("[inicia] PessoaInfraRepository - salva");
@@ -44,7 +49,7 @@ public class PessoaInfraRepository implements PessoaRepository {
     }
 
     @Override
-    public Endereco salvaEndereco(Endereco endereco) {
+    public Endereco salvaEndereco(Endereco endereco){
         log.info("[inicia] PessoaInfraRepository - salvaEndereco");
         endereco = enderecoSpringDataJPARepository.save(endereco);
         log.info("[finaliza] PessoaInfraRepository - salvaEndereco");
