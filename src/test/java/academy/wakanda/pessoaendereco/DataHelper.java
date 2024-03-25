@@ -1,15 +1,13 @@
 package academy.wakanda.pessoaendereco;
 
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaAlteracaoRequest;
-import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
+import academy.wakanda.pessoaendereco.pessoa.application.api.*;
+import academy.wakanda.pessoaendereco.pessoa.application.service.PessoaApplicationService;
 import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-
-import static jakarta.persistence.GenerationType.UUID;
 
 public class DataHelper {
 
@@ -51,11 +49,33 @@ public class DataHelper {
                 .build();
     }
 
-//    public static Endereco createEndereco(){
-//
-//
-//        return null;
-//    }
+    public static Endereco createEndereco(){
 
+        PessoaEnderecoRequest pessoaEnderecoRequest = PessoaEnderecoRequest.builder()
+                .logradouro(enderecoRequest().getLogradouro())
+                .cep(enderecoRequest().getCep())
+                .numero(enderecoRequest().getNumero())
+                .principal(enderecoRequest().getPrincipal())
+                .idPessoa(enderecoRequest().getIdPessoa())
+                .build();
 
+        return new Endereco(pessoaEnderecoRequest);
+    }
+
+    public static PessoaEnderecoRequest enderecoRequest(){
+
+        String logradouro = "logradouro";
+        String cep = "45822-080";
+        Integer numero = 123;
+        Boolean principal = false;
+        UUID idPessoa = createPessoa().getIdPessoa();
+
+        return PessoaEnderecoRequest.builder()
+                .logradouro(logradouro)
+                .cep(cep)
+                .numero(numero)
+                .principal(principal)
+                .idPessoa(idPessoa)
+                .build();
+    }
 }

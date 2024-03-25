@@ -4,6 +4,7 @@ import academy.wakanda.pessoaendereco.handler.APIException;
 import academy.wakanda.pessoaendereco.pessoa.application.api.*;
 import academy.wakanda.pessoaendereco.pessoa.application.service.PessoaApplicationService;
 import academy.wakanda.pessoaendereco.pessoa.application.repositoy.PessoaRepository;
+import academy.wakanda.pessoaendereco.pessoa.domain.Endereco;
 import academy.wakanda.pessoaendereco.pessoa.domain.Pessoa;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -145,9 +146,31 @@ public class PessoaApplicationServiceTests {
         verifyNoMoreInteractions(pessoaRepository);
     }
 
-//    @Test
-//    void criaEnderecoComSucesso(){
-//
-//    }
+    @Test
+    void criaEnderecoComSucesso(){
+        Pessoa pessoa = DataHelper.createPessoa();
+        PessoaRequest pessoaRequest = DataHelper.pessoaRequest();
+        Endereco endereco = DataHelper.createEndereco();
+        PessoaEnderecoRequest request = DataHelper.enderecoRequest();
 
+        when(pessoaRepository.salva(any(Pessoa.class))).thenReturn(pessoa);
+        when(pessoaRepository.buscaPessoaAtravesId(any())).thenReturn(pessoa);
+        when(pessoaRepository.salvaEndereco(any(Endereco.class))).thenReturn(endereco);
+
+        PessoaResponse pessoaResponse = pessoaApplicationService.criaPessoa(pessoaRequest);
+        PessoaEnderecoResponse enderecoResponse = pessoaApplicationService.criaEndereco(request);
+
+        assertNotNull(pessoaResponse);
+        assertNotNull(enderecoResponse);
+
+        assertEquals(request.getIdPessoa(), pessoaResponse.getIdPessoa());
+        assertEquals(endereco.getIdEndereco(), enderecoResponse.getIdEndereco());
+        assertEquals(endereco.getLogradouro(), request.getLogradouro());
+        assertEquals(endereco.getCep(), request.getCep());
+        assertEquals(endereco.getNumero(), request.getNumero());
+        assertEquals(endereco.getCidade(), request.getCidade());
+        assertEquals(endereco.getPrincipal(), request.getPrincipal());
+
+        verify(pessoaRepository).salvaEndereco(any(Endereco.class));
+    }
 }

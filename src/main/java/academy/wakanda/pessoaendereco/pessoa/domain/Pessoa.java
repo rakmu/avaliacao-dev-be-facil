@@ -1,6 +1,7 @@
 package academy.wakanda.pessoaendereco.pessoa.domain;
 
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaAlteracaoRequest;
+import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaEnderecoRequest;
 import academy.wakanda.pessoaendereco.pessoa.application.api.PessoaRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
