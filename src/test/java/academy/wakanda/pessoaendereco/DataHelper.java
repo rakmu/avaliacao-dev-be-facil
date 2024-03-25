@@ -55,6 +55,7 @@ public class DataHelper {
                 .logradouro(enderecoRequest().getLogradouro())
                 .cep(enderecoRequest().getCep())
                 .numero(enderecoRequest().getNumero())
+                .cidade(enderecoRequest().getCidade())
                 .principal(enderecoRequest().getPrincipal())
                 .idPessoa(enderecoRequest().getIdPessoa())
                 .build();
@@ -67,6 +68,7 @@ public class DataHelper {
         String logradouro = "logradouro";
         String cep = "45822-080";
         Integer numero = 123;
+        String cidade = "Eunapolis";
         Boolean principal = false;
         UUID idPessoa = createPessoa().getIdPessoa();
 
@@ -74,6 +76,26 @@ public class DataHelper {
                 .logradouro(logradouro)
                 .cep(cep)
                 .numero(numero)
+                .cidade(cidade)
+                .principal(principal)
+                .idPessoa(idPessoa)
+                .build();
+    }
+
+    public static PessoaEnderecoRequest enderecoRequestPessoaNaoExiste(){
+
+        String logradouro = "logradouro";
+        String cep = "45822-080";
+        Integer numero = 123;
+        Boolean principal = false;
+        String cidade = "Eunapolis";
+        UUID idPessoa = UUID.randomUUID();
+
+        return PessoaEnderecoRequest.builder()
+                .logradouro(logradouro)
+                .cep(cep)
+                .numero(numero)
+                .cidade(cidade)
                 .principal(principal)
                 .idPessoa(idPessoa)
                 .build();

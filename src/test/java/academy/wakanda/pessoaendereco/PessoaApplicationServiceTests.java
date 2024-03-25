@@ -173,4 +173,20 @@ public class PessoaApplicationServiceTests {
 
         verify(pessoaRepository).salvaEndereco(any(Endereco.class));
     }
+
+    @Test
+    void naoCriaEndereco(){
+
+        PessoaEnderecoRequest request = DataHelper.enderecoRequest();
+
+        when(pessoaRepository.buscaPessoaAtravesId(request.getIdPessoa())).thenThrow(APIException.build(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
+        APIException e = assertThrows(APIException.class,
+                () -> pessoaApplicationService.criaEndereco(request));
+
+        assertEquals(HttpStatus.NOT_FOUND, e.getStatusException());
+        assertEquals("Pessoa não encontrada!", e.getMessage());
+
+        verify(pessoaRepository, times(1)).buscaPessoaAtravesId(request.getIdPessoa());
+
+    }
 }
